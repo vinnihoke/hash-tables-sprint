@@ -4,40 +4,30 @@ class Ticket:
         self.source = source
         self.destination = destination
 
-class TripList:
-    def __init__(self):
-        self.head = None
-        self.storage = []
-        self.length = 0
-
-    def add_to_head(self, node):
-        self.storage.insert(0, node)
-        self.length += 1
-
-    def add_to_tail(self, node):
-        self.storage.append(node)
-        self.length += 1
-
-
 def reconstruct_trip(tickets, length):
     """
     YOUR CODE HERE
     """
     # Your code here
-    layovers = TripList()
-    organized_flights = []
+    result = []
+    store = {}
+    cursor = 0
 
     for t in tickets:
-        if t.source == "NONE":
-            layovers.add_to_head(t)
-            # organized_flights.insert(0, t.destination)
-        if layovers.storage[layovers.length - 1].destination == t.source:
-            layovers.add_to_tail(t)
-            organized_flights.append(t.source)
-        if t.destination == "NONE":
-            layovers.add_to_tail(t)
-            organized_flights.append(t.destination)
-    return organized_flights
+        store[t.source] = t.destination
+
+    result.append(store["NONE"])
+
+    while cursor is not length:
+        # Break Case
+        if store[result[cursor]] == "NONE":
+            result.append("NONE")
+            break
+
+        # Add the result of searching the store for the value at the index of cursor.
+        result.append(store[result[cursor]])
+        cursor += 1
+    return result
 
 
 
