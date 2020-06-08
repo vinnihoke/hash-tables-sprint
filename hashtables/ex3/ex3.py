@@ -3,8 +3,28 @@ def intersection(arrays):
     YOUR CODE HERE
     """
     # Your code here
+    length = len(arrays)
+    iteration = 0
+    result = []
+    store = {}
+
+    while iteration is not length:
+        for e in arrays[iteration]:
+            if e not in store:
+                store[e] = 1
+            else:
+                if store[e] is not iteration + 1:
+                    store[e] += 1
+        iteration += 1
+
+    for key, value in store.items():
+        if value == length:
+            result.append(key)
 
     return result
+
+
+
 
 
 if __name__ == "__main__":
